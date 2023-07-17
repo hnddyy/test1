@@ -5,6 +5,7 @@ import com.querydsl.sql.SQLTemplates;
 import com.querydsl.sql.postgresql.PostgreSQLQueryFactory;
 import com.querydsl.sql.spring.SpringConnectionProvider;
 import com.querydsl.sql.spring.SpringExceptionTranslator;
+import com.zaxxer.hikari.HikariConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
@@ -16,17 +17,25 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 @RequiredArgsConstructor
 @Configuration
 @EnableTransactionManagement
 @EnableJpaAuditing
-@EntityScan(basePackages = "org.example.domain.entity")
-@EnableJpaRepositories(basePackages = "org.example.repository")
+@EntityScan("org.example.domain.entity")
+@EnableJpaRepositories("org.example.repository")
 public class DatabaseConfig {
 
     private final DataSource dataSource;
+
+    private final HikariConfig config;
+
+    @PostConstruct
+    public void init() {
+        config.addHealthCheckProperty("connectivityCheckTimeoutMs", "60000");
+    }
 
     @Primary
     @Bean(name = "jdbcTemplate")
@@ -58,4 +67,5 @@ public class DatabaseConfig {
     public PostgreSQLQueryFactory sqlQueryFactory() {
         return new PostgreSQLQueryFactory(querydslConfiguration(), new SpringConnectionProvider(dataSource));
     }
+
 }

@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: webclient
+    name: Test
   servlet:
     context-path: /
     session:
@@ -38,7 +38,7 @@ spring:
       read-only: false
       transaction-isolation: TRANSACTION_READ_COMMITTED
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
       ddl-auto: update
