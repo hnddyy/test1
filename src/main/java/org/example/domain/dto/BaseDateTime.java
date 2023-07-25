@@ -8,7 +8,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Data
-@ToString(callSuper = true)
+@ToString
 @EqualsAndHashCode(callSuper = false)
 public class BaseDateTime implements Serializable {
     @Serial

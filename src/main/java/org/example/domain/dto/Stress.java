@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @ToString(callSuper = true)
@@ -24,4 +25,11 @@ public class Stress extends SearchDto implements Serializable {
     private Integer bodyBattery;
     private Integer bodyBatteryStatus;
     private String calendarDate;
+    private LocalDateTime startDateTime;
+
+    public LocalDateTime getStartDateTime() {
+        BaseDateTime date = startTime.getDate();
+        BaseDateTime time = startTime.getTime();
+        return LocalDateTime.of(date.getYear(), date.getMonth(), date.getDay(), time.getHour(), time.getMinute(), 0);
+    }
 }

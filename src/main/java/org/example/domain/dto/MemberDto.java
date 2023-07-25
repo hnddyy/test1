@@ -8,20 +8,22 @@ import lombok.ToString;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SearchDto implements Serializable {
+public class MemberDto implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 7991624458665817541L;
+    private static final long serialVersionUID = 9073655881199093631L;
 
     private String searchResearchGroupId;
     private String searchUserId;
-    private LocalDateTime searchStartDate;
-    private String searchEndDate;
+    private String searchUserName;
+    private String id;
+    private String name;
+    private Integer age;
+    private String groupId;
 }
