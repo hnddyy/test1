@@ -84,26 +84,25 @@ public class WebClientController {
         fitrockrBodyService.addStress(data);
     }
 
-    @GetMapping("/sample/queue")
-    public String samplePublish() {
-        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "funzin", "RabbitMQ + Springboot = Success!");
-        return "message sending!";
-    }
-
-    @GetMapping("/sample/bodydata")
-    public String sampleDataPublish() {
-        SearchDto searchDto = new SearchDto();
-        searchDto.setSearchUserId("646b38efdeb81f4756cfc87a");
-        searchDto.setSearchStartDate(LocalDateTime.of(2023, 6, 2, 9, 6, 0));
-        String dataString = fitrockrBodyService.getData(searchDto);
-        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "funzin", dataString);
-        return dataString;
-    }
+//    @GetMapping("/sample/queue")
+//    public String samplePublish() {
+//        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "funzin", "RabbitMQ + Springboot = Success!");
+//        return "message sending!";
+//    }
+//
+//    @GetMapping("/sample/bodydata")
+//    public String sampleDataPublish() {
+//        SearchDto searchDto = new SearchDto();
+//        searchDto.setSearchUserId("646b38efdeb81f4756cfc87a");
+//        searchDto.setSearchStartDate(LocalDateTime.of(2023, 6, 2, 9, 6, 0));
+//        String dataString = fitrockrBodyService.getData(searchDto);
+//        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "funzin", dataString);
+//        return dataString;
+//    }
 
     @GetMapping("/sample/topic")
-    public String sampleTopicDataPublish(@RequestParam("message")String message, @RequestParam("topic")String topic) {
-        mqttResponseService.sendToMqtt(message, topic);
-        return "mqtt message sending!";
+    public String sampleTopicDataPublish(@RequestParam("message")String message) {
+        return mqttResponseService.sendToMqtt(message);
     }
 
 }
